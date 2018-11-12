@@ -1,6 +1,8 @@
-# Java-Utils
+![](https://travis-ci.com/grisu-io/core.svg?branch=master)
 
-Need to say more?
+# Core
+
+Part of the [grisu.io](https://grisu.io) framework.
 
 Chers,
 

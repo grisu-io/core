@@ -1,4 +1,4 @@
-package io.grisu.utils;
+package io.grisu.core.utils;
 
 import java.util.HashMap;
 import java.util.Map;

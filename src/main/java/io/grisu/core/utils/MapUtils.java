@@ -1,4 +1,4 @@
-package io.grisu.utils;
+package io.grisu.core.utils;
 
 import java.util.Map;
 import java.util.UUID;

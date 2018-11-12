@@ -1,4 +1,4 @@
-package io.grisu.utils;
+package io.grisu.core.utils;
 
 @FunctionalInterface
 public interface TriFunction<T, U, S, R> {

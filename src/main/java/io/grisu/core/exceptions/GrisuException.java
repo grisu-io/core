@@ -1,11 +1,11 @@
-package io.grisu.exceptions;
+package io.grisu.core.exceptions;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import io.grisu.GrisuConstants;
-import io.grisu.utils.MapBuilder;
-import io.grisu.utils.MapUtils;
+import io.grisu.core.GrisuConstants;
+import io.grisu.core.utils.MapBuilder;
+import io.grisu.core.utils.MapUtils;
 
 public class GrisuException extends RuntimeException {
 

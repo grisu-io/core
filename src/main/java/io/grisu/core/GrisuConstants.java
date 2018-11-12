@@ -1,4 +1,4 @@
-package io.grisu;
+package io.grisu.core;
 
 public class GrisuConstants {
 
