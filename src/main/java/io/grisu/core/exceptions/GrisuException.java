@@ -11,11 +11,19 @@ public class GrisuException extends RuntimeException {
 
     private static final int DEFAULT_ERROR_STATUS_CODE = 500;
 
+    public final static String ERROR = "error";
+    public final static String ERRORS = "errors";
+    public static final String ERROR_CODE = "errorCode";
+
     protected Map<String, Object> _errors;
 
-    protected int errorCode;
+    protected Integer errorCode;
 
     protected GrisuException() {
+    }
+
+    public GrisuException(Throwable e) {
+        super(e);
     }
 
     public GrisuException(String error, String... errors) {
@@ -33,7 +41,7 @@ public class GrisuException extends RuntimeException {
         this.errorCode = errorCode;
     }
 
-    public int getErrorCode() {
+    public Integer getErrorCode() {
         return errorCode;
     }
 
@@ -51,17 +59,25 @@ public class GrisuException extends RuntimeException {
 
     public Map<String, Object> serialize() {
         Map<String, Object> serialized = new HashMap<>();
-        serialized.put("error", "ServiceException");
-        serialized.put("errorCode", errorCode);
-        serialized.put("errors", _errors);
+        serialized.put(ERROR, "ServiceException");
+        if (errorCode != null) {
+            serialized.put(ERROR_CODE, errorCode);
+        }
+        if (_errors != null) {
+            serialized.put(ERRORS, _errors);
+        }
         return serialized;
     }
 
     public static GrisuException build(Map<String, Object> serialized) {
         GrisuException serviceException = new GrisuException();
         if (serialized != null) {
-            serviceException._errors = MapUtils.get(serialized, "errors", new HashMap<String, Object>());
-            serviceException.errorCode = (Integer) serialized.get("errorCode");
+            if (serialized.containsKey(ERRORS)) {
+                serviceException._errors = MapUtils.get(serialized, ERRORS, new HashMap<>());
+            }
+            if (serialized.containsKey(ERROR_CODE)) {
+                serviceException.errorCode = (Integer) serialized.get(ERROR_CODE);
+            }
         }
         return serviceException;
     }
