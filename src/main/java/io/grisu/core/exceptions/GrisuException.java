@@ -49,6 +49,14 @@ public class GrisuException extends RuntimeException {
         return "no provided errors";
     }
 
+    public Map<String, Object> serialize() {
+        Map<String, Object> serialized = new HashMap<>();
+        serialized.put("error", "ServiceException");
+        serialized.put("errorCode", errorCode);
+        serialized.put("errors", _errors);
+        return serialized;
+    }
+
     public static GrisuException build(Map<String, Object> serialized) {
         GrisuException serviceException = new GrisuException();
         if (serialized != null) {
