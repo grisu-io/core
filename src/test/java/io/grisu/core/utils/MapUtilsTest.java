@@ -40,10 +40,30 @@ public class MapUtilsTest {
     }
 
     @Test
-    public void shouldReturnANullNumberFromANullValue() {
+    public void shouldReturnANullLongFromANullValue() {
         Map<String, Object> map = new HashMap<>();
         map.put("myNull", null);
         assertEquals(null, MapUtils.l(map, "myNull"));
     }
-    
+
+    @Test
+    public void shouldReturnADoubleFromAString() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("myDouble", "25");
+        assertEquals(new Double(25), MapUtils.d(map, "myDouble"));
+    }
+
+    @Test
+    public void shouldReturnADoubleFromANumber() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("myDouble", 26);
+        assertEquals(new Double(26), MapUtils.d(map, "myDouble"));
+    }
+
+    @Test
+    public void shouldReturnANullDoubleFromANullValue() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("myDouble", null);
+        assertEquals(null, MapUtils.d(map, "myNull"));
+    }
 }

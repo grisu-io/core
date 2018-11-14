@@ -75,7 +75,24 @@ public class MapUtils {
                 return Long.parseLong((String) o);
             }
             if (o instanceof Number) {
-                return ((Number)o).longValue();
+                return ((Number) o).longValue();
+            }
+        }
+
+        return null;
+    }
+
+    public static Double d(Map<String, Object> map, String key) {
+        final Object o = get(map, key);
+        if (o != null) {
+            if (o instanceof Double) {
+                return (Double) o;
+            }
+            if (o instanceof String) {
+                return Double.parseDouble((String) o);
+            }
+            if (o instanceof Number) {
+                return ((Number) o).doubleValue();
             }
         }
 
