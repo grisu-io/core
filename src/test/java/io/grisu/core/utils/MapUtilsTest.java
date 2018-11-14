@@ -25,4 +25,25 @@ public class MapUtilsTest {
         assertNull( MapUtils.get(map, "l1.levelNotExisting.propNotExisting"));
     }
 
+    @Test
+    public void shouldReturnALongFromAString() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("myLong", "25");
+        assertEquals(new Long(25), MapUtils.l(map, "myLong"));
+    }
+
+    @Test
+    public void shouldReturnALongFromANumber() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("myNumber", 26);
+        assertEquals(new Long(26), MapUtils.l(map, "myNumber"));
+    }
+
+    @Test
+    public void shouldReturnANullNumberFromANullValue() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("myNull", null);
+        assertEquals(null, MapUtils.l(map, "myNull"));
+    }
+    
 }

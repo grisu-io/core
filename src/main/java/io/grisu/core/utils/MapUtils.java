@@ -65,4 +65,21 @@ public class MapUtils {
         return null;
     }
 
+    public static Long l(Map<String, Object> map, String key) {
+        final Object o = get(map, key);
+        if (o != null) {
+            if (o instanceof Long) {
+                return (Long) o;
+            }
+            if (o instanceof String) {
+                return Long.parseLong((String) o);
+            }
+            if (o instanceof Number) {
+                return ((Number)o).longValue();
+            }
+        }
+
+        return null;
+    }
+
 }
