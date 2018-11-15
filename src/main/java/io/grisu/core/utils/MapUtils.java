@@ -1,5 +1,6 @@
 package io.grisu.core.utils;
 
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.UUID;
 
@@ -93,6 +94,20 @@ public class MapUtils {
             }
             if (o instanceof Number) {
                 return ((Number) o).doubleValue();
+            }
+        }
+
+        return null;
+    }
+
+    public static LocalDate localDate(Map<String, Object> map, String key) {
+        final Object o = get(map, key);
+        if (o != null) {
+            if (o instanceof LocalDate) {
+                return (LocalDate) o;
+            }
+            if (o instanceof String) {
+                return LocalDate.parse((String) o);
             }
         }
 

@@ -1,5 +1,6 @@
 package io.grisu.core.utils;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,5 +66,16 @@ public class MapUtilsTest {
         Map<String, Object> map = new HashMap<>();
         map.put("myDouble", null);
         assertEquals(null, MapUtils.d(map, "myNull"));
+    }
+
+    @Test
+    public void shouldReturnALocalDate() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("myDate", "1972-09-01");
+        final LocalDate myDate = MapUtils.localDate(map, "myDate");
+
+        assertEquals(9, myDate.getMonthValue());
+        assertEquals(1972, myDate.getYear());
+        assertEquals(1, myDate.getDayOfMonth());
     }
 }
