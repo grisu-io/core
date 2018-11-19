@@ -78,4 +78,25 @@ public class MapUtilsTest {
         assertEquals(1972, myDate.getYear());
         assertEquals(1, myDate.getDayOfMonth());
     }
+
+    @Test
+    public void shouldReturnAnIntegerFromAString() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("myInt", "25");
+        assertEquals(new Integer(25), MapUtils.i(map, "myInt"));
+    }
+
+    @Test
+    public void shouldReturnAnIntegerFromANumber() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("myInt", 26);
+        assertEquals(new Integer(26), MapUtils.i(map, "myInt"));
+    }
+
+    @Test
+    public void shouldReturnANullIntegerFromANullValue() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("myInt", null);
+        assertEquals(null, MapUtils.i(map, "myInt"));
+    }
 }

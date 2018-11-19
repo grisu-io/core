@@ -100,6 +100,23 @@ public class MapUtils {
         return null;
     }
 
+    public static Integer i(Map<String, Object> map, String key) {
+        final Object o = get(map, key);
+        if (o != null) {
+            if (o instanceof Integer) {
+                return (Integer) o;
+            }
+            if (o instanceof String) {
+                return Integer.parseInt((String) o);
+            }
+            if (o instanceof Number) {
+                return ((Number) o).intValue();
+            }
+        }
+
+        return null;
+    }
+
     public static LocalDate localDate(Map<String, Object> map, String key) {
         final Object o = get(map, key);
         if (o != null) {
