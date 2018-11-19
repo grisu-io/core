@@ -30,6 +30,11 @@ public class GrisuException extends RuntimeException {
         this(DEFAULT_ERROR_STATUS_CODE, error, errors);
     }
 
+    public GrisuException(Integer errorCode, Map<String, Object> _errors) {
+        this.errorCode = errorCode;
+        this._errors = _errors;
+    }
+
     public GrisuException(int errorCode, String error, String... errors) {
         if (errors.length % 2 != 0) {
             throw new RuntimeException("Errors array must be even");
