@@ -131,4 +131,14 @@ public class MapUtils {
         return null;
     }
 
+    public static <K,V> Map<K, V> map(Map<String, Object> map, String key) {
+        final Object o = get(map, key);
+        if (o != null) {
+            if (o instanceof Map) {
+                return (Map<K, V>) o;
+            }
+        }
+
+        return null;
+    }
 }

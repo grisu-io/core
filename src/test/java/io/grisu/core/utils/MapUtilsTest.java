@@ -4,9 +4,11 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class MapUtilsTest {
 
@@ -22,8 +24,8 @@ public class MapUtilsTest {
         map2.put("prop", "here you are!");
 
         assertEquals("here you are!", MapUtils.get(map, "l1.l2.prop"));
-        assertNull( MapUtils.get(map, "l1.l2.propNotExisting"));
-        assertNull( MapUtils.get(map, "l1.levelNotExisting.propNotExisting"));
+        assertNull(MapUtils.get(map, "l1.l2.propNotExisting"));
+        assertNull(MapUtils.get(map, "l1.levelNotExisting.propNotExisting"));
     }
 
     @Test
@@ -99,4 +101,24 @@ public class MapUtilsTest {
         map.put("myInt", null);
         assertEquals(null, MapUtils.i(map, "myInt"));
     }
+
+    @Test
+    public void shouldReturnAMapFromAMap() {
+        Map<String, Object> map = new HashMap<>();
+        Map<String, Integer> subMap = new HashMap<>();
+        subMap.put("key", 12);
+        map.put("mySubMap", subMap);
+        Map<String, Integer> resMap = MapUtils.map(map, "mySubMap");
+        assertEquals(subMap, resMap);
+        assertEquals(12, (int) resMap.get("key"));
+    }
+
+    @Test
+    public void shouldReturnANullMapFromADifferentValue() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("mySubMap", "value");
+        Map<String, Integer> resMap = MapUtils.map(map, "mySubMap");
+        Assert.assertNull(resMap);
+    }
+
 }
