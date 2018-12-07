@@ -1,8 +1,7 @@
 package io.grisu.core.utils;
 
 import java.time.LocalDate;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class MapUtils {
 
@@ -131,7 +130,8 @@ public class MapUtils {
         return null;
     }
 
-    public static <K,V> Map<K, V> map(Map<String, Object> map, String key) {
+    @SuppressWarnings("unchecked")
+    public static <K, V> Map<K, V> map(Map<String, Object> map, String key) {
         final Object o = get(map, key);
         if (o != null) {
             if (o instanceof Map) {
@@ -141,4 +141,21 @@ public class MapUtils {
 
         return null;
     }
+
+    @SuppressWarnings("unchecked")
+    public static <K> List<K> list(Map<String, Object> map, String key) {
+        final Object o = get(map, key);
+        if (o != null) {
+            if (o instanceof List) {
+                return (List<K>) o;
+            }
+
+            if (o instanceof Set) {
+                return new ArrayList<K>((Collection<K>) o);
+            }
+        }
+
+        return null;
+    }
+
 }

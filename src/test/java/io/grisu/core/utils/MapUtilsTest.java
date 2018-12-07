@@ -1,6 +1,7 @@
 package io.grisu.core.utils;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -121,4 +122,18 @@ public class MapUtilsTest {
         Assert.assertNull(resMap);
     }
 
+    @Test
+    public void shouldReturnAListFromAList() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("myList", Arrays.asList(1,2,3));
+        Assert.assertEquals(Arrays.asList(1,2,3), MapUtils.list(map, "myList"));
+    }
+
+    @Test
+    public void shouldReturnAListFromASet() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("mySet", Sets.of(1,2,3));
+        Assert.assertEquals(Arrays.asList(1,2,3), MapUtils.list(map, "mySet"));
+    }
+    
 }
