@@ -10,3 +10,6 @@
 log/
 target/
 settings.xml
+
+pom.xml.releaseBackup
+release.properties
