@@ -34,7 +34,7 @@
 
   <scm>
     <url>https://github.com/grisu-io/core</url>
-    <connection>scm:git:git@github.com:grisu-io/core.git</connection>
+    <connection>scm:git:https://github.com/grisu-io/core.git</connection>
   </scm>
   
   <build>
