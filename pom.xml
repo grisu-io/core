@@ -46,7 +46,7 @@
     <connection>scm:git:git@github.com:grisu-io/core.git</connection>
     <tag>HEAD</tag>
   </scm>
-  
+
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>

@@ -1,23 +1,17 @@
 package io.grisu.core.exceptions;
 
+import io.grisu.core.GrisuConstants;
+import io.grisu.core.utils.MapUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import io.grisu.core.GrisuConstants;
-import io.grisu.core.utils.MapBuilder;
-import io.grisu.core.utils.MapUtils;
-
 public class GrisuException extends RuntimeException {
 
-    private static final int DEFAULT_ERROR_STATUS_CODE = 500;
+    protected Map<String, Object> _errors = new HashMap<>();
+    protected Integer errorCode = null;
 
-    public final static String ERROR = "error";
-    public final static String ERRORS = "errors";
-    public static final String ERROR_CODE = "errorCode";
-
-    protected Map<String, Object> _errors;
-
-    protected Integer errorCode;
+    protected String errorMessage = null;
 
     protected GrisuException() {
     }
@@ -26,28 +20,31 @@ public class GrisuException extends RuntimeException {
         super(e);
     }
 
-    public GrisuException(String error, String... errors) {
-        this(DEFAULT_ERROR_STATUS_CODE, error, errors);
-    }
-
-    public GrisuException(Integer errorCode, Map<String, Object> _errors) {
+    public GrisuException(Integer errorCode, String errorMessage, Map<String, Object> _errors) {
         this.errorCode = errorCode;
+        this.errorMessage = errorMessage;
         this._errors = _errors;
     }
 
-    public GrisuException(int errorCode, String error, String... errors) {
-        if (errors.length % 2 != 0) {
+    public GrisuException(int errorCode, String errorMessage, String... errorsArray) {
+        if (errorsArray.length % 2 != 0) {
             throw new RuntimeException("Errors array must be even");
         }
-        _errors = MapBuilder.instance().add(GrisuConstants.ERROR, error).build();
-        for (int i = 0; i < errors.length; i = i + 2) {
-            _errors.put(errors[i], errors[i + 1]);
+
+        for (int i = 0; i < errorsArray.length; i = i + 2) {
+            this._errors.put(errorsArray[i], errorsArray[i + 1]);
         }
+
         this.errorCode = errorCode;
+        this.errorMessage = errorMessage;
     }
 
     public Integer getErrorCode() {
         return errorCode;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
     public Map<String, Object> getErrors() {
@@ -64,25 +61,38 @@ public class GrisuException extends RuntimeException {
 
     public Map<String, Object> serialize() {
         Map<String, Object> serialized = new HashMap<>();
-        serialized.put(ERROR, "ServiceException");
+
         if (errorCode != null) {
-            serialized.put(ERROR_CODE, errorCode);
+            serialized.put(GrisuConstants.ERROR_CODE, errorCode);
         }
+
+        if (errorMessage != null) {
+            serialized.put(GrisuConstants.ERROR_MESSAGE, errorMessage);
+        }
+
         if (_errors != null) {
-            serialized.put(ERRORS, _errors);
+            serialized.put(GrisuConstants.ERRORS, _errors);
         }
+
         return serialized;
     }
 
     public static GrisuException build(Map<String, Object> serialized) {
         GrisuException serviceException = new GrisuException();
         if (serialized != null) {
-            if (serialized.containsKey(ERRORS)) {
-                serviceException._errors = MapUtils.get(serialized, ERRORS, new HashMap<>());
+
+            if (serialized.containsKey(GrisuConstants.ERRORS)) {
+                serviceException._errors = MapUtils.get(serialized, GrisuConstants.ERRORS, new HashMap<>());
             }
-            if (serialized.containsKey(ERROR_CODE)) {
-                serviceException.errorCode = (Integer) serialized.get(ERROR_CODE);
+
+            if (serialized.containsKey(GrisuConstants.ERROR_CODE)) {
+                serviceException.errorCode = (Integer) serialized.get(GrisuConstants.ERROR_CODE);
             }
+
+            if (serialized.containsKey(GrisuConstants.ERROR_MESSAGE)) {
+                serviceException.errorMessage = (String) serialized.get(GrisuConstants.ERROR_MESSAGE);
+            }
+
         }
         return serviceException;
     }
