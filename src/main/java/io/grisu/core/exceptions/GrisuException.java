@@ -78,23 +78,23 @@ public class GrisuException extends RuntimeException {
     }
 
     public static GrisuException build(Map<String, Object> serialized) {
-        GrisuException serviceException = new GrisuException();
+        GrisuException grisuException = new GrisuException();
         if (serialized != null) {
 
             if (serialized.containsKey(GrisuConstants.ERRORS)) {
-                serviceException._errors = MapUtils.get(serialized, GrisuConstants.ERRORS, new HashMap<>());
+                grisuException._errors = MapUtils.get(serialized, GrisuConstants.ERRORS, new HashMap<>());
             }
 
             if (serialized.containsKey(GrisuConstants.ERROR_CODE)) {
-                serviceException.errorCode = (Integer) serialized.get(GrisuConstants.ERROR_CODE);
+                grisuException.errorCode = (Integer) serialized.get(GrisuConstants.ERROR_CODE);
             }
 
             if (serialized.containsKey(GrisuConstants.ERROR_MESSAGE)) {
-                serviceException.errorMessage = (String) serialized.get(GrisuConstants.ERROR_MESSAGE);
+                grisuException.errorMessage = (String) serialized.get(GrisuConstants.ERROR_MESSAGE);
             }
 
         }
-        return serviceException;
+        return grisuException;
     }
 
 }
