@@ -53,7 +53,7 @@ public class GrisuException extends RuntimeException {
 
     @Override
     public String getMessage() {
-        if (_errors != null) {
+        if (_errors != null && !_errors.isEmpty()) {
             return _errors.toString();
         }
         return "no provided errors";
